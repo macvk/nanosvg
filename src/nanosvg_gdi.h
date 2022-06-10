@@ -130,6 +130,9 @@ HBITMAP SvgLoadImage(HINSTANCE hInst, LPCSTR name, UINT type, int cx, int cy, UI
 		}
 		fclose(f);
 
+		svg_data = (UCHAR*)realloc(svg_data, svg_data_size+1);
+		svg_data[svg_data_size] = 0;
+
 	}
 	else
 	{
@@ -158,8 +161,10 @@ HBITMAP SvgLoadImage(HINSTANCE hInst, LPCSTR name, UINT type, int cx, int cy, UI
 		}
 
 		svg_data_size = SizeofResource(hInst, hres);
-		svg_data = (UCHAR*)malloc(svg_data_size);
+		svg_data = (UCHAR*)malloc(svg_data_size+1);
 		memcpy(svg_data, lplock, svg_data_size);
+
+		svg_data[svg_data_size] = 0;
 		
 	}
 	
